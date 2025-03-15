@@ -25,14 +25,14 @@ object Sequences: // Essentially, generic linkedlists
       case Nil() => Nil()
 
     // Lab 03
-    
+
     /*
-      * Skip the first n elements of the sequence
-      * E.g., [10, 20, 30], 2 => [30]
-      * E.g., [10, 20, 30], 3 => []
-      * E.g., [10, 20, 30], 0 => [10, 20, 30]
-      * E.g., [], 2 => []
-      */
+     * Skip the first n elements of the sequence
+     * E.g., [10, 20, 30], 2 => [30]
+     * E.g., [10, 20, 30], 3 => []
+     * E.g., [10, 20, 30], 0 => [10, 20, 30]
+     * E.g., [], 2 => []
+     */
     def skip[A](s: Sequence[A])(n: Int): Sequence[A] = ???
 
     /*

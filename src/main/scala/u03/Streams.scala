@@ -42,7 +42,12 @@ object Streams extends App:
     def takeWhile[A](stream: Stream[A])(pred: A => Boolean): Stream[A] = stream match
       case Cons(head, tail) if pred(head()) => cons(head(), takeWhile(tail())(pred))
       case _ => Empty()
-
+    
+    def interleave[A](stream1: Stream[A], stream2: Stream[A]): Stream[A] = (stream1, stream2) match
+      case (Cons(h1, t1), Cons(h2, t2)) => cons(h1(), cons(h2(), interleave(t1(), t2())))
+      case (Cons(h1, t1), _) => cons(h1(), interleave(t1(), empty()))
+      case (_, Cons(h2, t2)) => cons(h2(), interleave(empty(), t2()))
+      case _ => empty()
   end Stream
 end Streams
 
