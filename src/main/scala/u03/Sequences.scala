@@ -2,10 +2,6 @@ package u03
 
 import u03.Optionals.Optional
 import u03.Optionals.Optional.*
-import u03.Sequences.Sequence.concat
-
-import scala.Console.println
-import scala.annotation.tailrec
 
 object Sequences: // Essentially, generic linkedlists
 
@@ -29,19 +25,15 @@ object Sequences: // Essentially, generic linkedlists
       case Nil() => Nil()
 
     // Lab 03
-
+    
     /*
-     * Skip the first n elements of the sequence
-     * E.g., [10, 20, 30], 2 => [30]
-     * E.g., [10, 20, 30], 3 => []
-     * E.g., [10, 20, 30], 0 => [10, 20, 30]
-     * E.g., [], 2 => []
-     */
-    @tailrec
-    def skip[A](s: Sequence[A])(n: Int): Sequence[A] = (s, n) match
-      case (Cons(_, tail), n) if n > 0 => skip(tail)(n - 1)
-      case (s, 0) => s
-      case _ => Nil()
+      * Skip the first n elements of the sequence
+      * E.g., [10, 20, 30], 2 => [30]
+      * E.g., [10, 20, 30], 3 => []
+      * E.g., [10, 20, 30], 0 => [10, 20, 30]
+      * E.g., [], 2 => []
+      */
+    def skip[A](s: Sequence[A])(n: Int): Sequence[A] = ???
 
     /*
      * Zip two sequences
@@ -49,9 +41,7 @@ object Sequences: // Essentially, generic linkedlists
      * E.g., [10], [] => []
      * E.g., [], [] => []
      */
-    def zip[A, B](first: Sequence[A], second: Sequence[B]): Sequence[(A, B)] = (first, second) match
-      case (Cons(h1, t1), Cons(h2, t2)) => Cons((h1, h2), zip(t1, t2))
-      case _ => Nil()
+    def zip[A, B](first: Sequence[A], second: Sequence[B]): Sequence[(A, B)] = ???
 
     /*
      * Concatenate two sequences
@@ -59,13 +49,7 @@ object Sequences: // Essentially, generic linkedlists
      * E.g., [10], [] => [10]
      * E.g., [], [] => []
      */
-    /*def concat[A](s1: Sequence[A], s2: Sequence[A]): Sequence[A] = (s1, s2) match
-      case (Cons(h1, t1), _) => Cons(h1, concat(t1, s2))
-      case (_, Cons(h2, t2)) => Cons(h2, concat(s1, t2))
-      case _ => Nil()*/
-    def concat[A](s1: Sequence[A], s2: Sequence[A]): Sequence[A] = s1 match
-      case Cons(h, t) => Cons(h, concat(t, s2))
-      case _ => s2
+    def concat[A](s1: Sequence[A], s2: Sequence[A]): Sequence[A] = ???
 
     /*
      * Reverse the sequence
@@ -73,59 +57,36 @@ object Sequences: // Essentially, generic linkedlists
      * E.g., [10] => [10]
      * E.g., [] => []
      */
+    def reverse[A](s: Sequence[A]): Sequence[A] = ???
 
-    def reverse[A](s: Sequence[A]): Sequence[A] =
-      @tailrec
-      def reverseHelper(s: Sequence[A], acc: Sequence[A]): Sequence[A] = s match
-        case Nil() => acc
-        case Cons(h, t) => reverseHelper(t, Cons(h, acc))
-      reverseHelper(s, Nil())
-
-
-    /* Map the elements of the sequence to a new sequence and flatten the result
+    /*
+     * Map the elements of the sequence to a new sequence and flatten the result
      * E.g., [10, 20, 30], calling with mapper(v => [v, v + 1]) returns [10, 11, 20, 21, 30, 31]
      * E.g., [10, 20, 30], calling with mapper(v => [v]) returns [10, 20, 30]
      * E.g., [10, 20, 30], calling with mapper(v => Nil()) returns []
      */
-    def flatMap[A, B](s: Sequence[A])(mapper: A => Sequence[B]): Sequence[B] = s match
-      case Nil() => Nil()
-      case Cons(h, t) => concat(mapper(h), flatMap(t)(mapper))
+    def flatMap[A, B](s: Sequence[A])(mapper: A => Sequence[B]): Sequence[B] = ???
 
     /*
      * Get the minimum element in the sequence
      * E.g., [30, 20, 10] => 10
      * E.g., [10, 1, 30] => 1
      */
-    def min(s: Sequence[Int]): Optional[Int] = s match
-      case Nil() => Optional.Empty()
-      case Cons(h, t) =>
-        @tailrec
-        def _search(min: Int, s: Sequence[Int]): Int = s match
-          case Cons(h, t) if h < min => _search(h, t)
-          case Cons(h, t) => _search(min, t)
-          case _ => min
-        Optional.Just(_search(h, t))
+    def min(s: Sequence[Int]): Optional[Int] = ???
 
     /*
      * Get the elements at even indices
      * E.g., [10, 20, 30] => [10, 30]
      * E.g., [10, 20, 30, 40] => [10, 30]
      */
-    def evenIndices[A](s: Sequence[A]): Sequence[A] = s match
-      case Cons(h, Nil()) => Cons(h, Nil())
-      case Cons(h, Cons(_, t)) => Cons(h, evenIndices(t))
-      case _ => Nil()
+    def evenIndices[A](s: Sequence[A]): Sequence[A] = ???
 
     /*
      * Check if the sequence contains the element
      * E.g., [10, 20, 30] => true if elem is 20
      * E.g., [10, 20, 30] => false if elem is 40
      */
-    @tailrec
-    def contains[A](s: Sequence[A])(elem: A): Boolean = s match
-      case Cons(h, t) if h == elem => true
-      case Cons(_, t) => contains(t)(elem)
-      case _ => false
+    def contains[A](s: Sequence[A])(elem: A): Boolean = ???
 
     /*
      * Remove duplicates from the sequence
@@ -152,11 +113,11 @@ object Sequences: // Essentially, generic linkedlists
   end Sequence
 end Sequences
 
-@main def trySequences(): Unit =
+@main def trySequences =
   import Sequences.*
   val sequence = Sequence.Cons(10, Sequence.Cons(20, Sequence.Cons(30, Sequence.Nil())))
   println(Sequence.sum(sequence)) // 30
 
   import Sequence.*
 
-  println(sum(map(filter(sequence)(_ >= 20))(_ + 1)))
+  println(sum(map(filter(sequence)(_ >= 20))(_ + 1))) // 21+31 = 52
