@@ -152,7 +152,7 @@ object Sequences: // Essentially, generic linkedlists
   end Sequence
 end Sequences
 
-@main def trySequences =
+@main def trySequences(): Unit =
   import Sequences.*
   val sequence = Sequence.Cons(10, Sequence.Cons(20, Sequence.Cons(30, Sequence.Nil())))
   println(Sequence.sum(sequence)) // 30
